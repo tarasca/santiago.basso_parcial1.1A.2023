@@ -146,7 +146,6 @@ def print_ordenados(array_items:list):#ordena la lista y la muestra organizada
 
 def realizar_compras(array_items:list):
     loop_1 = True
-    loop_2 = True
     
     index_carrito = 0
     carrito = []
@@ -160,23 +159,27 @@ def realizar_compras(array_items:list):
                 new_compra = {}
                 print("<---COMPRAS--->")
                 print("se mostraran insumos a partir de la marca ingresada.")
+                for item in array_items:
+                    print(item['marca'])
+
                 input_marca = input("ingresar marca: ")
                 input_marca = input_marca.lower()
                 input_marca = input_marca.capitalize()
-                
-                
+
+                sub_array = []
                 print(f"|{'id':^2s}|{'descripcion':^31s}|{'precio':^6s}|{'marca':^30s}|{'primer carac.':^30s}|")
                 for item in array_items:
                     if(input_marca == item['marca']):
+                        sub_array.append(item)
                         carac = item['carac'].split('~')
                         print(f"|{item['id']:2s}|{item['nombre']:^31s}|{float(item['precio']):^6.2f}|{item['marca']:^30s}|{carac[0]:^30s}|")
                       
                 input_id = int(input("ingrese el id del producto que desea comprar(numero): "))
-
+                
                 for item in array_items:
-                    if(input_id == int(item['id'])):
+                    if(input_id == int(item['id']) and item['marca'] == input_marca):
                         new_compra.update({'id_item':int(item['id']),'nombre_item':item['nombre'],'marca_item':item['marca'],'precio_item':float(item['precio'].strip('$'))})
-                        
+                      
                 input_cant = int(input("ingresar cantidad del producto seleccionado: "))
                 new_compra.update({'cant_item':input_cant})
                 new_compra.update({'total_item':(new_compra['precio_item'] * new_compra['cant_item'])})
